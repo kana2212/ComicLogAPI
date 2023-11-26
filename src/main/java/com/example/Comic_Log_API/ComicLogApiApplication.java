@@ -1,4 +1,4 @@
-package com.example.Comic_Log_API.service;
+package com.example.Comic_Log_API;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
