@@ -6,6 +6,7 @@ import com.example.Comic_Log_API.form.UpdateForm;
 import com.example.Comic_Log_API.service.ComicLogService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,6 +51,12 @@ public class ComicLogController {
     public ResponseEntity<Map<String, String>> updateComics(@PathVariable("id") Integer id, @RequestBody @Validated UpdateForm updateForm) {
         comicLogService.updateComics(updateForm.getId(), updateForm.getComicServiceName(), updateForm.getComicTitle(), updateForm.getVolumes());
         return ResponseEntity.ok(Map.of("message", "successfully updated"));
+    }
+
+    @DeleteMapping("comiclogs/{id}")
+    public ResponseEntity<Map<String, String>> deleteComics(@PathVariable("id") Integer id) {
+        comicLogService.deleteComics(id);
+        return ResponseEntity.ok(Map.of("message", "successfully deleted"));
     }
 
 }

@@ -13,4 +13,7 @@ public interface ComicLogService {
     Comics createComics(String comicServiceName, String comicTitle, int volumes);
 
     void updateComics(Integer id,String comicServiceName, String comicTitle, int volumes);
+
+    void deleteComics(Integer id);
+
 }

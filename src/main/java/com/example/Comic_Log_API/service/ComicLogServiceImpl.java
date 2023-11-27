@@ -9,8 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ComicLogServiceImpl implements ComicLogService{
+public class ComicLogServiceImpl implements ComicLogService {
     private final ComicLogMapper comicLogMapper;
+
     public ComicLogServiceImpl(ComicLogMapper comicLogMapper) {
         this.comicLogMapper = comicLogMapper;
     }
@@ -33,7 +34,7 @@ public class ComicLogServiceImpl implements ComicLogService{
 
     @Override
     public Comics createComics(String comicServiceName, String comicTitle, int volumes) {
-        Comics comics = new Comics(comicServiceName, comicTitle,volumes);
+        Comics comics = new Comics(comicServiceName, comicTitle, volumes);
         comicLogMapper.createComics(comics);
         return comics;
     }
@@ -42,6 +43,12 @@ public class ComicLogServiceImpl implements ComicLogService{
     public void updateComics(Integer id, String comicServiceName,String comicTitle,int volumes) {
         Comics updateComics = comicLogMapper.findById(id).orElseThrow(() -> new ResourceNotFoundException("resource not found"));
         comicLogMapper.updateComics(id,comicServiceName,comicTitle,volumes);
+    }
+
+
+    @Override
+    public void deleteComics(Integer id) {
+        comicLogMapper.deleteComics(id);
     }
 
 }
