@@ -1,7 +1,9 @@
 package com.example.Comic_Log_API.repository;
 
 import com.example.Comic_Log_API.entity.Comics;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -15,4 +17,8 @@ public interface ComicLogMapper {
 
         @Select("SELECT * FROM comics WHERE id = #{id}")
         Optional<Comics> findById(Integer id);
+
+        @Insert("INSERT INTO comics (comic_service_name,comic_title,volumes) VALUES (#{comicServiceName}, #{comicTitle},#{volumes})")
+        @Options(useGeneratedKeys = true,keyProperty = "id")
+        void createComics(Comics comics);
 }
