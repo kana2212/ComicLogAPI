@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,4 +22,8 @@ public interface ComicLogMapper {
         @Insert("INSERT INTO comics (comic_service_name,comic_title,volumes) VALUES (#{comicServiceName}, #{comicTitle},#{volumes})")
         @Options(useGeneratedKeys = true,keyProperty = "id")
         void createComics(Comics comics);
+
+        @Update("UPDATE comics SET comic_service_name = #{comicServiceName}, comic_title = #{comicTitle}, volumes = #{volumes} WHERE id = #{id}")
+        void updateComics(Integer id,String comicServiceName, String comicTitle, int volumes);
+
 }
