@@ -1,5 +1,8 @@
 package com.example.Comic_Log_API.entity;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
 public class Comics {
 
     private Integer id;
