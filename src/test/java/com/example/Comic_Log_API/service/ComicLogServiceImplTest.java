@@ -1,6 +1,6 @@
 package com.example.Comic_Log_API.service;
 
-import com.example.Comic_Log_API.entity.Comics;
+import com.example.Comic_Log_API.entity.Comic;
 import com.example.Comic_Log_API.exception.ResourceNotFoundException;
 import com.example.Comic_Log_API.repository.ComicLogMapper;
 import org.junit.jupiter.api.Test;
@@ -30,22 +30,22 @@ public class ComicLogServiceImplTest {
 
     @Test
     public void コミックの情報が全権取得できること() throws Exception {
-        List<Comics> comicsList = List.of(
-                new Comics("コミックシーモア", "鬼滅の刃", 22),
-                new Comics("Renta!", "葬送のフリーレン", 11),
-                new Comics("ダンジョン飯", "Kindle", 12));
-        doReturn(comicsList).when(comicLogMapper).findAll();
-        List<Comics> actual = comicLogServiceImpl.findAll();
-        assertThat(actual).isEqualTo(comicsList);
+        List<Comic> comicList = List.of(
+                new Comic("コミックシーモア", "鬼滅の刃", 22),
+                new Comic("Renta!", "葬送のフリーレン", 11),
+                new Comic("ダンジョン飯", "Kindle", 12));
+        doReturn(comicList).when(comicLogMapper).findAll();
+        List<Comic> actual = comicLogServiceImpl.findAll();
+        assertThat(actual).isEqualTo(comicList);
         verify(comicLogMapper, times(1)).findAll();
     }
 
     @Test
     public void 存在するIDを指定した時に正常にコミックの情報が返されること() {
-        doReturn(Optional.of(new Comics("コミックシーモア", "鬼滅の刃", 22))).when(comicLogMapper).findById(1);
+        doReturn(Optional.of(new Comic("コミックシーモア", "鬼滅の刃", 22))).when(comicLogMapper).findById(1);
 
-        Comics actual = comicLogServiceImpl.findById(1);
-        assertThat(actual).isEqualTo(new Comics("コミックシーモア", "鬼滅の刃", 22));
+        Comic actual = comicLogServiceImpl.findById(1);
+        assertThat(actual).isEqualTo(new Comic("コミックシーモア", "鬼滅の刃", 22));
         verify(comicLogMapper, times(1)).findById(1);
     }
 
@@ -60,15 +60,15 @@ public class ComicLogServiceImplTest {
 
     @Test
     public void 新規にコミック情報を登録できること() {
-        Comics testComics = new Comics("楽天ブックス", "薬屋のひとりごと", 11);
+        Comic testComic = new Comic("楽天ブックス", "薬屋のひとりごと", 11);
         comicLogServiceImpl.createComics("楽天ブックス", "薬屋のひとりごと", 11);
-        Mockito.verify(comicLogMapper).createComics(testComics);
+        Mockito.verify(comicLogMapper).createComics(testComic);
     }
 
     @Test
     public void 指定したIDのコミック情報を更新できること() {
-        Comics updateComics = new Comics("コミックシーモア", "鬼滅の刃", 23);
-        doReturn(Optional.of(new Comics("コミックシーモア", "鬼滅の刃", 23)))
+        Comic updateComic = new Comic("コミックシーモア", "鬼滅の刃", 23);
+        doReturn(Optional.of(new Comic("コミックシーモア", "鬼滅の刃", 23)))
                 .when(comicLogMapper).findById(1);
 
         comicLogServiceImpl.updateComics(1, "コミックシーモア", "鬼滅の刃", 23);
@@ -78,7 +78,7 @@ public class ComicLogServiceImplTest {
 
     @Test
     public void 更新対象のIDが存在しない場合に例外をスローできること() throws Exception {
-        Comics updateComics = new Comics(60, "コミックフェスタ", "僕のヒーローアカデミア", 35);
+        Comic updateComic = new Comic(60, "コミックフェスタ", "僕のヒーローアカデミア", 35);
 
         assertThatThrownBy(() -> comicLogServiceImpl.updateComics(60, "コミックフェスタ", "僕のヒーローアカデミア", 35))
                 .isInstanceOf(ResourceNotFoundException.class);

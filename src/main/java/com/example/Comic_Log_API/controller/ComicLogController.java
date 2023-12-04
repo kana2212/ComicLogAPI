@@ -1,6 +1,6 @@
 package com.example.Comic_Log_API.controller;
 
-import com.example.Comic_Log_API.entity.Comics;
+import com.example.Comic_Log_API.entity.Comic;
 import com.example.Comic_Log_API.form.CreateForm;
 import com.example.Comic_Log_API.form.UpdateForm;
 import com.example.Comic_Log_API.service.ComicLogService;
@@ -28,20 +28,20 @@ public class ComicLogController {
     }
 
     @GetMapping("/comiclogs")
-    public List<Comics> findAll() {
+    public List<Comic> findAll() {
         return comicLogService.findAll();
     }
 
     @GetMapping("/comiclogs/{id}")
-    public Comics getComics(@PathVariable("id") Integer id) {
+    public Comic getComics(@PathVariable("id") Integer id) {
         return comicLogService.findById(id);
     }
 
     @PostMapping("/comiclogs")
     public ResponseEntity<Map<String, String>> createComics(@RequestBody @Validated CreateForm createForm, UriComponentsBuilder uriBuilder) {
-        Comics comics = comicLogService.createComics(createForm.getComicServiceName(), createForm.getComicTitle(), createForm.getVolumes());
+        Comic comic = comicLogService.createComics(createForm.getComicServiceName(), createForm.getComicTitle(), createForm.getVolumes());
         URI url = uriBuilder
-                .path("/comiclogs/" + comics.getId())
+                .path("/comiclogs/" + comic.getId())
                 .build()
                 .toUri();
         return ResponseEntity.created(url).body(Map.of("message", "successfully created"));

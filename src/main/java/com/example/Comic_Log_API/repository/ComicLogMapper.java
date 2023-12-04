@@ -1,6 +1,6 @@
 package com.example.Comic_Log_API.repository;
 
-import com.example.Comic_Log_API.entity.Comics;
+import com.example.Comic_Log_API.entity.Comic;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -15,17 +15,17 @@ import java.util.Optional;
 public interface ComicLogMapper {
 
     @Select("SELECT * FROM comics")
-    List<Comics> findAll();
+    List<Comic> findAll();
 
     @Select("SELECT * FROM comics WHERE id = #{id}")
-    Optional<Comics> findById(Integer id);
+    Optional<Comic> findById(Integer id);
 
     @Insert("INSERT INTO comics (comic_service_name,comic_title,volumes) VALUES (#{comicServiceName}, #{comicTitle},#{volumes})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    void createComics(Comics comics);
+    void createComics(Comic comic);
 
     @Update("UPDATE comics SET comic_service_name = #{comicServiceName}, comic_title = #{comicTitle}, volumes = #{volumes} WHERE id = #{id}")
-    void updateComics(Integer id,String comicServiceName, String comicTitle, int volumes);
+    void updateComics(Integer id,String comicServiceName, String comicTitle, Integer volumes);
 
     @Delete("DELETE FROM comics WHERE id = #{id}")
     void deleteComics(Integer id);

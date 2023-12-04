@@ -1,18 +1,18 @@
 package com.example.Comic_Log_API.service;
 
-import com.example.Comic_Log_API.entity.Comics;
+import com.example.Comic_Log_API.entity.Comic;
 
 import java.util.List;
 
 public interface ComicLogService {
 
-    List<Comics> findAll();
+    List<Comic> findAll();
 
-    Comics findById(Integer id);
+    Comic findById(Integer id);
 
-    Comics createComics(String comicServiceName, String comicTitle, int volumes);
+    Comic createComics(String comicServiceName, String comicTitle, Integer volumes);
 
-    void updateComics(Integer id,String comicServiceName, String comicTitle, int volumes);
+    void updateComics(Integer id,String comicServiceName, String comicTitle, Integer volumes);
 
     void deleteComics(Integer id);
 

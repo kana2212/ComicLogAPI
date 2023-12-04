@@ -15,5 +15,5 @@ public class UpdateForm {
     @NotBlank
     private String comicTitle;
     @NotNull
-    private int volumes;
+    private Integer volumes;
 }

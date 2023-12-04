@@ -1,6 +1,6 @@
 package com.example.Comic_Log_API.service;
 
-import com.example.Comic_Log_API.entity.Comics;
+import com.example.Comic_Log_API.entity.Comic;
 import com.example.Comic_Log_API.exception.ResourceNotFoundException;
 import com.example.Comic_Log_API.repository.ComicLogMapper;
 import org.springframework.stereotype.Service;
@@ -17,14 +17,14 @@ public class ComicLogServiceImpl implements ComicLogService {
     }
 
     @Override
-    public List<Comics> findAll() {
+    public List<Comic> findAll() {
         return comicLogMapper.findAll();
     }
 
 
     @Override
-    public Comics findById(Integer id) {
-        Optional<Comics> comics = this.comicLogMapper.findById(id);
+    public Comic findById(Integer id) {
+        Optional<Comic> comics = this.comicLogMapper.findById(id);
         if (comics.isPresent()) {
             return comics.get();
         } else {
@@ -33,15 +33,15 @@ public class ComicLogServiceImpl implements ComicLogService {
     }
 
     @Override
-    public Comics createComics(String comicServiceName, String comicTitle, int volumes) {
-        Comics comics = new Comics(comicServiceName, comicTitle, volumes);
-        comicLogMapper.createComics(comics);
-        return comics;
+    public Comic createComics(String comicServiceName, String comicTitle, Integer volumes) {
+        Comic comic = new Comic(comicServiceName, comicTitle, volumes);
+        comicLogMapper.createComics(comic);
+        return comic;
     }
 
     @Override
-    public void updateComics(Integer id, String comicServiceName,String comicTitle,int volumes) {
-        Comics updateComics = comicLogMapper.findById(id).orElseThrow(() -> new ResourceNotFoundException("resource not found"));
+    public void updateComics(Integer id, String comicServiceName,String comicTitle,Integer volumes) {
+        Comic updateComic = comicLogMapper.findById(id).orElseThrow(() -> new ResourceNotFoundException("resource not found"));
         comicLogMapper.updateComics(id,comicServiceName,comicTitle,volumes);
     }
 
