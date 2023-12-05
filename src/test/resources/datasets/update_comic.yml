@@ -4,8 +4,8 @@ comics:
     comic_title: "鬼滅の刃"
     volumes: 22
   - id: 2
-    comic_service_name: "Renta!"
-    comic_title: "葬送のフリーレン"
+    comic_service_name: "Rakuten Kobo"
+    comic_title: "薬屋のひとりごと"
     volumes: 11
   - id: 3
     comic_service_name: "Kindle"

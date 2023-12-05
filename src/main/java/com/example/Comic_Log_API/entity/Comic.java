@@ -17,6 +17,7 @@ public class Comic {
         this.comicServiceName = comicServiceName;
         this.comicTitle = comicTitle;
         this.volumes = volumes;
+        this.id = id;
     }
 
     public Comic(String comicServiceName, String comicTitle, Integer volumes) {
