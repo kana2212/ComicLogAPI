@@ -1,0 +1,13 @@
+comics:
+  - id: 1
+    comic_service_name: "コミックシーモア"
+    comic_title: "鬼滅の刃"
+    volumes: 22
+  - id: 2
+    comic_service_name: "Rakuten Kobo"
+    comic_title: "薬屋のひとりごと"
+    volumes: 4
+  - id: 3
+    comic_service_name: "Kindle"
+    comic_title: "ダンジョン飯"
+    volumes: 12
