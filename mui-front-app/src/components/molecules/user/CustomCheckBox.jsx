@@ -1,36 +1,30 @@
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
-import * as React from "react";
+import React, { useState } from "react";
 
-export default function CustomCheckbox() {
-  const [checked1, setChecked1] = React.useState(false);
-  const [checked2, setChecked2] = React.useState(false);
+export const CustomCheckBox = () => {
+  const [selectedOption, setSelectedOption] = useState("");
 
-  const handleChange1 = (event) => {
-    setChecked1(event.target.checked);
-  };
-
-  const handleChange2 = (event) => {
-    setChecked2(event.target.checked);
+  const handleChange = (e) => {
+    setSelectedOption(e.target.value);
   };
 
   return (
-    <FormGroup row={true}>
-      <FormControlLabel
-        control={<Checkbox checked={checked1} onChange={handleChange1} />}
-        label="続"
+    <form style={{ paddingLeft: "5px" }}>
+      <input
+        type="radio"
+        id="themeChecked1"
+        value="checked1"
+        checked={selectedOption === "checked1"}
+        onChange={handleChange}
       />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={checked2}
-            onChange={handleChange2}
-            sx={{ "&.Mui-checked": { color: "red" } }}
-          />
-        }
-        label="完結"
+      <label htmlFor="themeChecked1">続</label>
+      <input
+        type="radio"
+        id="themeChecked2"
+        value="checked2"
+        checked={selectedOption === "checked2"}
+        onChange={handleChange}
       />
-    </FormGroup>
+      <label htmlFor="themeChecked2">完結</label>
+    </form>
   );
-}
+};

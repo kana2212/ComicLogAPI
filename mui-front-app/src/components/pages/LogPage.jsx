@@ -1,52 +1,159 @@
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import * as React from "react";
-import CustomCheckbox from "../molecules/user/CustomCheckBox";
-import { CustomTextField } from "../molecules/user/CustomTextField";
+import {
+  Button,
+  Checkbox,
+  List,
+  ListItem,
+  TextField,
+  Typography,
+} from "@mui/material";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import HeaderLayout from "../atoms/layout/HeaderLayout";
+import { CustomCheckBox } from "../molecules/user/CustomCheckBox";
 
 export const LogPage = () => {
-  const [open, setOpen] = React.useState(false);
+  const [comicServiceName, setComicServiceName] = useState("");
+  const [comicTitle, setComicTitle] = useState("");
+  const [volumes, setVolumes] = useState("");
+  const [comicList, setComicList] = useState([]);
+  const [isEdited, setIsEdited] = useState(false);
+  const [editedId, setEditedId] = useState(null);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleAddClick = () => {
+    if (!isEdited) {
+      setComicList([
+        ...comicList,
+        {
+          comicServiceName,
+          comicTitle,
+          volumes,
+          isDone: false,
+          id: new Date().getTime(),
+        },
+      ]);
+    } else {
+      const updatedList = comicList.map((comic) =>
+        comic.id === editedId
+          ? {
+              ...comic,
+              comicServiceName,
+              comicTitle,
+              volumes,
+            }
+          : comic
+      );
+      setComicList(updatedList);
+      setIsEdited(false);
+      setEditedId(null);
+    }
+    setComicServiceName("");
+    setComicTitle("");
+    setVolumes("");
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleEdit = (id) => {
+    const editedComic = comicList.find((comic) => comic.id === id);
+    if (editedComic) {
+      setComicServiceName(editedComic.comicServiceName || "");
+      setComicTitle(editedComic.comicTitle || "");
+      setVolumes(editedComic.volumes || null);
+      setIsEdited(true);
+      setEditedId(id);
+    }
   };
+
+  const handleDelete = (id) => {
+    const newComicList = comicList.filter((comic) => comic.id !== id);
+    setComicList(newComicList);
+  };
+
+  const handleDone = (id) => {
+    const updatedList = comicList.map((comic) =>
+      comic.id === id ? { ...comic, isDone: !comic.isDone } : comic
+    );
+    setComicList(updatedList);
+  };
+
+  const isMaxLimitResister = comicList.length >= 3;
+  const isDisabled = isMaxLimitResister && !isEdited;
 
   return (
-    <React.Fragment>
-      <div style={{ textAlign: "center" }}>
+    <div
+      style={{ display: "flex", justifyContent: "center", marginTop: "100px" }}
+    >
+      <div style={{ width: "50%" }}>
+        <Link to="/">
+          <HeaderLayout />
+        </Link>
+        <Typography variant="h6" sx={{ paddingBottom: "10ox" }}>
+          お試し登録は3つまでです。
+        </Typography>
+        <TextField
+          variant="outlined"
+          onChange={(e) => setComicServiceName(e.target.value)}
+          label="コミックサービス名"
+          value={comicServiceName}
+          sx={{ maxWidth: 360 }}
+        />
+        <TextField
+          variant="outlined"
+          onChange={(e) => setComicTitle(e.target.value)}
+          label="タイトル"
+          value={comicTitle}
+          sx={{ maxWidth: 360 }}
+        />
+        <TextField
+          Type="number"
+          inputProps={{ min: 0 }}
+          variant="outlined"
+          onChange={(e) => setVolumes(e.target.value)}
+          label="巻数"
+          value={volumes}
+        />
+        {isMaxLimitResister && (
+          <p style={{ color: "red" }}>登録できる項目は3つまでです。</p>
+        )}
         <Button
-          sx={{ backgroundColor: "#66330e", color: "#fff", margin: "20px" }}
-          onClick={handleClickOpen}
+          size="medium"
+          variant={!isMaxLimitResister || isEdited ? "outlined" : "contained"}
+          sx={{ bgcolor: "text.secondary", color: "#fff", margin: "5px" }}
+          onClick={handleAddClick}
+          disabled={isDisabled}
         >
-          記録をつける
+          {isEdited ? "再編集" : "登録する"}
         </Button>
+        <List style={{ display: "block" }}>
+          {comicList.map((comic) => (
+            <ListItem divider="true" key={comic.id}>
+              <Checkbox
+                onClick={() => handleDone(comic.id)}
+                checked={comic.isDone}
+              />
+              <Typography
+                style={{ color: comic.isDone ? "green" : "" }}
+                sx={{ justifyContent: "space-around" }}
+              >
+                {comic.comicServiceName} - {comic.comicTitle} - {comic.volumes}{" "}
+              </Typography>
+              <CustomCheckBox />
+              <Button
+                onClick={() => handleEdit(comic.id)}
+                variant="contained"
+                sx={{ marginLeft: 2, bgcolor: "#ffab40" }}
+              >
+                編集
+              </Button>
+              <Button
+                onClick={() => handleDelete(comic.id)}
+                variant="contained"
+                sx={{ marginLeft: 2, bgcolor: "#448aff" }}
+              >
+                削除
+              </Button>
+            </ListItem>
+          ))}
+        </List>
       </div>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>コミック情報登録</DialogTitle>
-        <DialogContent>
-          <DialogContentText>読んだ漫画を記録しよう</DialogContentText>
-          <CustomTextField
-            id="serviceName"
-            label="コミックサービス名"
-            type="name"
-          />
-          <CustomTextField id="title" label="タイトル" type="name" />
-          <CustomTextField id="volume" label="巻数" type="voluems" />
-          <CustomCheckbox />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>戻る</Button>
-          <Button onClick={handleClose}>登録</Button>
-        </DialogActions>
-      </Dialog>
-    </React.Fragment>
+    </div>
   );
 };

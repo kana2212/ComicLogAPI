@@ -1,6 +1,6 @@
 import React from "react";
 import BaseButton from "../atoms/button/BaseButton";
-import { ButtonAppBar } from "../atoms/layout/Header";
+import { Header } from "../atoms/layout/Header";
 
 export const Top = () => {
   return (
@@ -10,9 +10,9 @@ export const Top = () => {
         <p>読んだ漫画のサービス名、タイトル、巻数を記録しよう</p>
         <BaseButton />
       </div>
-      <ButtonAppBar />
+      <Header />
     </div>
-  )
+  );
 };
 
 export default Top;
