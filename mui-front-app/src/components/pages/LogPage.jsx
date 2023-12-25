@@ -1,13 +1,7 @@
-import {
-  Button,
-  Checkbox,
-  List,
-  ListItem,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, List, ListItem, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { CreateComic } from "../../hooks/CreateCustomInput";
 import HeaderLayout from "../atoms/layout/HeaderLayout";
 import { CustomCheckBox } from "../molecules/user/CustomCheckBox";
 
@@ -49,6 +43,13 @@ export const LogPage = () => {
     setComicServiceName("");
     setComicTitle("");
     setVolumes("");
+    CreateComic({
+      comicServiceName,
+      comicTitle,
+      volumes,
+      isDone: false,
+      id: new Date().getTime(),
+    });
   };
 
   const handleEdit = (id) => {
@@ -65,13 +66,6 @@ export const LogPage = () => {
   const handleDelete = (id) => {
     const newComicList = comicList.filter((comic) => comic.id !== id);
     setComicList(newComicList);
-  };
-
-  const handleDone = (id) => {
-    const updatedList = comicList.map((comic) =>
-      comic.id === id ? { ...comic, isDone: !comic.isDone } : comic
-    );
-    setComicList(updatedList);
   };
 
   const isMaxLimitResister = comicList.length >= 3;
@@ -103,8 +97,6 @@ export const LogPage = () => {
           sx={{ maxWidth: 360 }}
         />
         <TextField
-          Type="number"
-          inputProps={{ min: 0 }}
           variant="outlined"
           onChange={(e) => setVolumes(e.target.value)}
           label="巻数"
@@ -124,11 +116,7 @@ export const LogPage = () => {
         </Button>
         <List style={{ display: "block" }}>
           {comicList.map((comic) => (
-            <ListItem divider="true" key={comic.id}>
-              <Checkbox
-                onClick={() => handleDone(comic.id)}
-                checked={comic.isDone}
-              />
+            <ListItem divider key={comic.id}>
               <Typography
                 style={{ color: comic.isDone ? "green" : "" }}
                 sx={{ justifyContent: "space-around" }}

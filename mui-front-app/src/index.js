@@ -9,7 +9,6 @@ import './index.css';
   <React.StrictMode>
      <StyledEngineProvider injectFirst>
     <App />
-    <customThema />
     </StyledEngineProvider>
   </React.StrictMode>
 );
