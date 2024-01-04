@@ -1,59 +1,59 @@
-import { useEffect, useState } from "react";
+import { Button } from "@mui/material";
+import { memo, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { instance } from "../axios/config";
+import { useComicInput } from "./ComicInputProvider";
 
-export const EditComicLog = () => {
+export const EditComicLog = memo((props) => {
+  const { updateComicList, setUpdateComicList } = props;
   const { id } = useParams();
+  const { inputData } = useComicInput();
+
   const navigate = useNavigate();
 
-  const [comicServiceName, setComicServiceName] = useState("");
-  const [comicTitle, setComicTitle] = useState("");
-  const [volumes, setVolumes] = useState("");
-  const [comicList, setComicList] = useState([]);
-  const [setAlert] = useState({ title: "", status: "" });
+  const [updateServiceName, setUpdateServiceName] = useState("");
+  const [updateTitle, setUpdateTitle] = useState("");
+  const [updateVolumes, setUpdateVolumes] = useState("");
+
+  const onChangeUpdateServiceName = (e) => setUpdateServiceName(e.target.value);
+  const onChangeUpdateTitle = (e) => setUpdateTitle(e.target.value);
+  const onChangeUpdateVolumes = (e) => setUpdateVolumes(e.target.value);
 
   useEffect(() => {
-    instance
-      .get("/comiclogs/" + id)
-      .then((response) => {
-        setComicList(response.data);
-      })
-      .catch((error) => console.log(error));
-  }, [id]);
+    setUpdateServiceName(updateComicList?.comicServiceName ?? "");
+    setUpdateTitle(updateComicList?.comicTitle ?? "");
+    setUpdateVolumes(updateComicList?.volumes ?? "");
+  }, [updateComicList]);
 
-  const changeComicLog = (comicServiceName, comicTitle, volumes) => {
-    setComicServiceName(comicServiceName);
-    setComicTitle(comicTitle);
-    setVolumes(volumes);
-  };
-
-  const onClickUpdate = async (id) => {
+  const onClickUpdate = async () => {
     try {
       const response = await instance.patch(`/comiclogs/${id}`, {
-        comicServiceName: comicServiceName,
-        comicTitle: comicTitle,
-        volumes: volumes,
+        comicServiceName: updateServiceName,
+        comicTitle: updateTitle,
+        volumes: updateVolumes,
       });
-      console.log(response);
-      setAlert({ title: "登録成功", status: "success" });
+      const updatedResponse = await instance.get(`/comiclogs/${id}`);
+      setUpdateComicList(updatedResponse.data);
+      toast.success("登録成功");
     } catch (err) {
-      console.error(err);
-      setAlert({ title: "登録失敗", status: "error" });
+      toast.error("登録失敗");
+      navigate("/logpage");
     }
-    navigate("/logpage");
   };
 
-  return {
-    comicServiceName,
-    setComicServiceName,
-    comicTitle,
-    setComicTitle,
-    volumes,
-    setVolumes,
-    comicList,
-    setComicList,
-    changeComicLog,
-    onClickUpdate,
-    EditComicLog,
-  };
-};
+  return (
+    <form onSubmit={onClickUpdate}>
+      <>
+        <Button
+          type="submit"
+          size="medium"
+          variant="outlined"
+          sx={{ bgcolor: "text.secondary", color: "#fff", margin: "5px" }}
+        >
+          編集
+        </Button>
+      </>
+    </form>
+  );
+});

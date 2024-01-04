@@ -1,90 +1,92 @@
-import { Button, TextField } from "@mui/material";
+import { Button, FormControl, TextField } from "@mui/material";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { instance } from "../axios/config";
+import { CustomCheckBox } from "../component/molecules/user/CustomCheckBox";
+import ComicLogTable from "../component/pages/ComicLogTable";
+import { useComicInput } from "./ComicInputProvider";
+import { useMessage } from "./useMessage";
 
 export const CreateComicInput = () => {
-  const handleValueChange = (newValue) => {
-    setComicList(newValue);
+  const { inputData, setInputData, setComicList } = useComicInput();
+  const { notifySuccess, notifyError } = useMessage();
+  const [status, setStatus] = useState("");
+
+  const handleCheckBoxChange = (selectedStatus) => {
+    setStatus(selectedStatus);
   };
-  const [comicServiceName, setComicServiceName] = useState("");
-  const [comicTitle, setComicTitle] = useState("");
-  const [volumes, setVolumes] = useState("");
-  const [comicList, setComicList] = useState([]);
-  const [alert, setAlert] = useState({ title: "", status: "" });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const onChangeNewServiceName = (e) => setComicServiceName(e.target.value);
-  const onChangeNewTitle = (e) => setComicTitle(e.target.value);
-  const onChangeNewVolumes = (e) => setVolumes(e.target.value);
-
-  const onClickRegistration = async () => {
+  const onSubmit = async (data) => {
     try {
-      const response = await instance.post("/comiclogs", {
-        comicServiceName,
-        comicTitle,
-        volumes,
-      });
+      const payload = {
+        ...data,
+        status: status,
+      };
+      const response = await instance.post("/comiclogs", payload, data);
+      setComicList((oldList) => [...oldList, response.data]);
       console.log(response);
-      setComicServiceName("");
-      setComicTitle("");
-      setVolumes("");
-      setAlert({ title: "登録成功", status: "success" });
+      setInputData({
+        comicServiceName: "",
+        comicTitle: "",
+        volumes: "",
+      });
+      notifySuccess("登録成功");
 
-      const updatedResponse = await instance.get(
-        "http://localhost:8080/comiclogs"
-      );
-      handleValueChange(updatedResponse.data);
-    } catch (err) {
-      console.error(err);
-      setAlert({ title: "登録失敗", status: "error" });
+      const createResponse = await instance.get("/comiclogs");
+      setComicList(createResponse.data);
+    } catch (error) {
+      notifyError("登録失敗");
     }
   };
 
-  const isMaxLimitRegister = comicList.length >= 3;
-
   return (
-    <>
-      <TextField
-        variant="outlined"
-        onChange={onChangeNewServiceName}
-        label="コミックサービス名"
-        value={comicServiceName}
-        sx={{ maxWidth: 360 }}
-      />
-      <TextField
-        variant="outlined"
-        onChange={onChangeNewTitle}
-        label="タイトル"
-        value={comicTitle}
-        sx={{ maxWidth: 360 }}
-      />
-      <TextField
-        variant="outlined"
-        onChange={onChangeNewVolumes}
-        label="巻数"
-        value={volumes}
-      />
-      {isMaxLimitRegister && (
-        <p style={{ color: "red" }}>登録できる項目は3つまでです。</p>
-      )}
-      <Button
-        size="medium"
-        variant="outlined"
-        sx={{ bgcolor: "text.secondary", color: "#fff", margin: "5px" }}
-        onClick={onClickRegistration}
-        disabled={isMaxLimitRegister}
-      >
-        登録
-      </Button>
-    </>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <>
+        <FormControl>
+          <TextField
+            {...register("comicServiceName", { required: true })}
+            label="コミックサービス名"
+            variant="outlined"
+            sx={{ maxWidth: 360 }}
+          />
+          {errors.comicServiceName && (
+            <span>コミックサービス名を入力してください</span>
+          )}
+        </FormControl>
+        <FormControl>
+          <TextField
+            {...register("comicTitle", { required: true })}
+            label="タイトル"
+            variant="outlined"
+            sx={{ maxWidth: 360 }}
+          />
+          {errors.comicTitle && <span>タイトルを入力してください</span>}
+        </FormControl>
+        <FormControl>
+          <TextField
+            {...register("volumes", { pattern: /^[0-9]*$/ })}
+            label="巻数"
+            variant="outlined"
+            sx={{ maxWidth: 360 }}
+          />
+          {errors.volumes && <span>数字を入力してください</span>}
+        </FormControl>
+        <CustomCheckBox handleCheckBoxChange={handleCheckBoxChange} />
+        <Button
+          type="submit"
+          size="medium"
+          variant="outlined"
+          sx={{ bgcolor: "text.secondary", color: "#fff", margin: "5px" }}
+        >
+          登録
+        </Button>
+      </>
+      <ComicLogTable inputData={inputData} />
+    </form>
   );
-
-  // return {
-  //   comicServiceName,
-  //   setComicServiceName,
-  //   comicTitle,
-  //   setComicTitle,
-  //   volumes,
-  //   setVolumes,
-  //   onClickRegistration,
-  // };
 };

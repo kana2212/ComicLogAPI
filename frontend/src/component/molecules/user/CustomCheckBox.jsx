@@ -1,30 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 
-export const CustomCheckBox = () => {
-  const [selectedOption, setSelectedOption] = useState("");
-
+export const CustomCheckBox = ({ handleCheckBoxChange }) => {
   const handleChange = (e) => {
-    setSelectedOption(e.target.value);
+    handleCheckBoxChange(e.target.value);
   };
 
   return (
-    <form style={{ paddingLeft: "5px" }}>
+    <div style={{ paddingLeft: "5px" }}>
+      {" "}
       <input
         type="radio"
+        name="status"
         id="themeChecked1"
-        value="checked1"
-        checked={selectedOption === "checked1"}
+        value="続"
         onChange={handleChange}
       />
       <label htmlFor="themeChecked1">続</label>
       <input
         type="radio"
+        name="status"
         id="themeChecked2"
-        value="checked2"
-        checked={selectedOption === "checked2"}
+        value="完結"
         onChange={handleChange}
       />
       <label htmlFor="themeChecked2">完結</label>
-    </form>
+    </div>
   );
 };

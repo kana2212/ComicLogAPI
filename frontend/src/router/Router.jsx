@@ -15,7 +15,14 @@ export const Router = () => {
       <Route path="/logpage" element={<LogPage />} />
       <Route path="/logpage/create" element={<CreateComicInput />} />
       <Route path="/logpage/delete" element={<DeleteComicLog />} />
-      <Route path="/logpage/edit" element={<EditComicLog />} />
+      <Route
+        path="/EditComicLog/:id"
+        element={
+          <LogPage>
+            <EditComicLog />
+          </LogPage>
+        }
+      />
     </Routes>
   );
 };
