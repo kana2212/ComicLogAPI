@@ -1,12 +1,12 @@
 package com.example.Comic_Log_API.service;
 
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
 import com.example.Comic_Log_API.entity.Comic;
 import com.example.Comic_Log_API.exception.ResourceNotFoundException;
 import com.example.Comic_Log_API.repository.ComicLogMapper;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ComicLogServiceImpl implements ComicLogService {
@@ -15,12 +15,6 @@ public class ComicLogServiceImpl implements ComicLogService {
     public ComicLogServiceImpl(ComicLogMapper comicLogMapper) {
         this.comicLogMapper = comicLogMapper;
     }
-
-    @Override
-    public List<Comic> findAll() {
-        return comicLogMapper.findAll();
-    }
-
 
     @Override
     public Comic findById(Integer id) {
@@ -33,18 +27,18 @@ public class ComicLogServiceImpl implements ComicLogService {
     }
 
     @Override
-    public Comic createComics(String comicServiceName, String comicTitle, Integer volumes) {
-        Comic comic = new Comic(comicServiceName, comicTitle, volumes);
+    public Comic createComics(String comicServiceName, String comicTitle, Integer volumes, String status) {
+        Comic comic = new Comic(comicServiceName, comicTitle, volumes, status);
         comicLogMapper.createComics(comic);
         return comic;
     }
 
     @Override
-    public void updateComics(Integer id, String comicServiceName,String comicTitle,Integer volumes) {
-        Comic updateComic = comicLogMapper.findById(id).orElseThrow(() -> new ResourceNotFoundException("resource not found"));
-        comicLogMapper.updateComics(id,comicServiceName,comicTitle,volumes);
+    public void updateComics(Integer id, String comicServiceName, String comicTitle, Integer volumes, String status) {
+        Comic updateComic = comicLogMapper.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("resource not found"));
+        comicLogMapper.updateComics(id, comicServiceName, comicTitle, volumes, status);
     }
-
 
     @Override
     public void deleteComics(Integer id) {
