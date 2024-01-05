@@ -5,8 +5,9 @@ CREATE TABLE comics (
   comic_service_name VARCHAR(100) Not Null,
   comic_title VARCHAR(100) Not Null,
   volumes int unsigned Not Null,
+  status VARCHAR(50) Not Null,
   PRIMARY KEY(id)
 );
-INSERT INTO comics (id, comic_service_name, comic_title, volumes) VALUES (1, "コミックシーモア", "鬼滅の刃", 22);
-INSERT INTO comics (id, comic_service_name, comic_title, volumes) VALUES (2, "Renta!", "葬送のフリーレン", 11);
-INSERT INTO comics (id, comic_service_name, comic_title, volumes) VALUES (3, "Kindle", "ダンジョン飯", 12);
+INSERT INTO comics (comic_service_name, comic_title, volumes, status) VALUES ("コミックシーモア", "鬼滅の刃", 23, "完結");
+INSERT INTO comics (comic_service_name, comic_title, volumes, status) VALUES ("Renta!", "葬送のフリーレン", 11, "続");
+INSERT INTO comics (comic_service_name, comic_title, volumes, status) VALUES ("Kindle", "ダンジョン飯", 14, "完結");
