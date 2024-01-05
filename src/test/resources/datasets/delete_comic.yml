@@ -2,8 +2,10 @@ comics:
   - id: 1
     comic_service_name: "コミックシーモア"
     comic_title: "鬼滅の刃"
-    volumes: 22
+    volumes: 23
+    status: "完結"
   - id: 2
     comic_service_name: "Rakuten Kobo"
     comic_title: "薬屋のひとりごと"
     volumes: 4
+    status: "続"
