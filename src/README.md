@@ -7,8 +7,7 @@
 - どのサービスで
 - どの漫画を
 - 何巻まで  
-  読んだかを記録する事で一括管理をするアプリを作りました。  
-
+  読んだかを記録する事で一括管理をするアプリを作りました。
 
 ## 使用技術
 
@@ -18,13 +17,12 @@
    -MyBatis
 - フロントエンド  
    -React 18.2.0  
-   -[Material UI](https://mui.com/"Material UI")
+   -[Material UI] (https://mui.com/)
 - その他  
    -MySql 8.0
   -Docker 23.0.5 -自動テスト  
    -CI(Checstyle,自動テストを実行)  
-   -AWS デプロイ  
-
+   -AWS デプロイ
 
 ## ER 図
 
