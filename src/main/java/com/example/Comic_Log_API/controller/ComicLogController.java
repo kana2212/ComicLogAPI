@@ -65,9 +65,11 @@ public class ComicLogController {
     }
 
     @DeleteMapping("comiclogs/{id}")
-    public ResponseEntity<Map<String, String>> deleteComics(@PathVariable("id") Integer id) {
-        comicLogService.deleteComics(id);
-        return ResponseEntity.ok(Map.of("message", "successfully deleted"));
+    public ResponseEntity<?> deleteComics(@PathVariable Integer id) {
+        if (id != null) {
+            comicLogService.deleteComics(id);
+            return ResponseEntity.ok(Map.of("message", "successfully deleted"));
+        }
+        return ResponseEntity.badRequest().body("Invalid ID");
     }
-
 }
