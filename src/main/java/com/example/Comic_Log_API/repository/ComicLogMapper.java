@@ -40,7 +40,7 @@ public interface ComicLogMapper {
     List<Comic> findByConditions(String comicServiceName, String comicTitle, Integer volumes, String status);
 
     @Insert("INSERT INTO comics (comic_service_name,comic_title,volumes,status) VALUES (#{comicServiceName}, #{comicTitle},#{volumes},#{status})")
-    @Options(useGeneratedKeys = true, keyProperty = "id")
+    @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
     void createComics(Comic comic);
 
     @Update("UPDATE comics SET comic_service_name = #{comicServiceName}, comic_title = #{comicTitle}, volumes = #{volumes}, status = #{status} WHERE id = #{id}")
