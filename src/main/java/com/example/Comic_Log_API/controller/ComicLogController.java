@@ -50,7 +50,7 @@ public class ComicLogController {
         Comic comic = comicLogService.createComics(createForm.getComicServiceName(), createForm.getComicTitle(),
                 createForm.getVolumes(), createForm.getStatus());
         URI url = uriBuilder
-                .path("/comiclogs/" + comic.getId())
+                .path("/comiclogs/{id}" + comic.getId())
                 .build()
                 .toUri();
         return ResponseEntity.created(url).body(Map.of("message", "successfully created"));
