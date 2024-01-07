@@ -13,7 +13,7 @@ export const LogPage = () => {
         <Link to="/">
           <HeaderLayout />
         </Link>
-        <Typography variant="h6" sx={{ paddingBottom: "10ox" }}>
+        <Typography variant="h6" sx={{ paddingBottom: "10px" }}>
           お試し登録は3つまでです。
         </Typography>
         <CreateComicInput />
