@@ -16,5 +16,6 @@ public class CreateForm {
     private String comicTitle;
     @NotNull
     private Integer volumes;
+    @NotNull
     private String status;
 }
