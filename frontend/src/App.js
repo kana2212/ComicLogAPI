@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
-import { ComicInputProvider } from './hooks/ComicInputProvider';
+import { ComicInputProvider } from './hooks/provider/ComicInputProvider';
 import { Router } from './router/Router';
 
 function App() {

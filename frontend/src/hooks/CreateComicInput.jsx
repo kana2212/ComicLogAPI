@@ -4,14 +4,14 @@ import { useForm } from "react-hook-form";
 import { instance } from "../axios/config";
 import { CustomCheckBox } from "../component/molecules/user/CustomCheckBox";
 import ComicLogTable from "../component/pages/ComicLogTable";
-import { useComicInput } from "./ComicInputProvider";
+import { useComicInput } from "./provider/ComicInputProvider";
 import { useMessage } from "./useMessage";
 
 export const CreateComicInput = () => {
   const { inputData, setInputData, setComicList } = useComicInput();
   const { notifySuccess, notifyError } = useMessage();
   const [status, setStatus] = useState("");
-
+  const [id, setId] = useState(null);
   const handleCheckBoxChange = (selectedStatus) => {
     setStatus(selectedStatus);
   };
@@ -21,24 +21,26 @@ export const CreateComicInput = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data, event) => {
+    event.preventDefault();
     try {
       const payload = {
         ...data,
         status: status,
       };
-      const response = await instance.post("/comiclogs", payload, data);
-      setComicList((oldList) => [...oldList, response.data]);
-      console.log(response);
+      const postResponse = await instance.post("/comiclogs", payload);
+      setId(postResponse.data.id);
+
+      const getResponse = await instance.get("/comiclogs");
+      setComicList(getResponse.data);
+
+      console.log(postResponse);
       setInputData({
         comicServiceName: "",
         comicTitle: "",
         volumes: "",
       });
       notifySuccess("登録成功");
-
-      const createResponse = await instance.get("/comiclogs");
-      setComicList(createResponse.data);
     } catch (error) {
       notifyError("登録失敗");
     }
