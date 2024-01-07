@@ -8,12 +8,11 @@ export const ComicInputProvider = ({ children }) => {
     comicTitle: "",
     volumes: "",
   });
-  const [id, setId] = useState(null);
   const [comicList, setComicList] = useState([]);
 
   return (
     <ComicInputContext.Provider
-      value={{ inputData, setInputData, comicList, setComicList, id, setId }}
+      value={{ inputData, setInputData, comicList, setComicList }}
     >
       {children}
     </ComicInputContext.Provider>

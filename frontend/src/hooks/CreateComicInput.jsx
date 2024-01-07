@@ -11,7 +11,6 @@ export const CreateComicInput = () => {
   const { inputData, setInputData, setComicList } = useComicInput();
   const { notifySuccess, notifyError } = useMessage();
   const [status, setStatus] = useState("");
-  const [id, setId] = useState(null);
   const handleCheckBoxChange = (selectedStatus) => {
     setStatus(selectedStatus);
   };
@@ -29,7 +28,6 @@ export const CreateComicInput = () => {
         status: status,
       };
       const postResponse = await instance.post("/comiclogs", payload);
-      setId(postResponse.data.id);
 
       const getResponse = await instance.get("/comiclogs");
       setComicList(getResponse.data);
