@@ -8,7 +8,8 @@ public interface ComicLogService {
 
     Comic findById(Integer id);
 
-    List<Comic> findByConditions(String comicServiceName, String comicTitle, Integer volumes, String status);
+    List<Comic> findByConditions(Integer id, String comicServiceName, String comicTitle, Integer volumes,
+            String status);
 
     Comic createComics(String comicServiceName, String comicTitle, Integer volumes, String status);
 

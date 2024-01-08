@@ -20,9 +20,12 @@ public interface ComicLogMapper {
 
     @Select("<script>"
             + " SELECT"
-            + " comic_service_name, comic_title, volumes, status"
+            + " id, comic_service_name, comic_title, volumes, status"
             + " FROM comics"
             + "<where>"
+            + "<if test='id != null'>"
+            + "  AND id = #{id}"
+            + "</if>"
             + "<if test='comicServiceName != null and comicServiceName != \"\"'>"
             + "  AND comic_service_name LIKE '%${comicServiceName}%'"
             + "</if>"
@@ -37,7 +40,8 @@ public interface ComicLogMapper {
             + "</if>"
             + "</where>"
             + "</script>")
-    List<Comic> findByConditions(String comicServiceName, String comicTitle, Integer volumes, String status);
+    List<Comic> findByConditions(Integer id, String comicServiceName, String comicTitle, Integer volumes,
+            String status);
 
     @Insert("INSERT INTO comics (comic_service_name,comic_title,volumes,status) VALUES (#{comicServiceName}, #{comicTitle},#{volumes},#{status})")
     @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")

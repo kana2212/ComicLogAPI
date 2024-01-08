@@ -28,8 +28,9 @@ public class ComicLogServiceImpl implements ComicLogService {
     }
 
     @Override
-    public List<Comic> findByConditions(String comicServiceName, String comicTitle, Integer volumes, String status) {
-        return comicLogMapper.findByConditions(comicServiceName, comicTitle, volumes, status);
+    public List<Comic> findByConditions(Integer id, String comicServiceName, String comicTitle, Integer volumes,
+            String status) {
+        return comicLogMapper.findByConditions(id, comicServiceName, comicTitle, volumes, status);
     }
 
     @Override
