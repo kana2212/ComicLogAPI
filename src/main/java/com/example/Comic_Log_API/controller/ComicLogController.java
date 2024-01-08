@@ -32,11 +32,12 @@ public class ComicLogController {
     }
 
     @GetMapping("/comiclogs")
-    public List<Comic> get(@RequestParam(name = "comicServiceName", required = false) String comicServiceName,
+    public List<Comic> get(@RequestParam(name = "id", required = false) Integer id,
+            @RequestParam(name = "comicServiceName", required = false) String comicServiceName,
             @RequestParam(name = "comicTitle", required = false) String comicTitle,
             @RequestParam(name = "volumes", required = false) Integer volumes,
             @RequestParam(name = "status", required = false) String status) {
-        return comicLogService.findByConditions(comicServiceName, comicTitle, volumes, status);
+        return comicLogService.findByConditions(id, comicServiceName, comicTitle, volumes, status);
     }
 
     @GetMapping("/comiclogs/{id}")
