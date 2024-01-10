@@ -41,10 +41,9 @@
     window.onload = function() {
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
-        url: "openapi.yaml",
+        url: "https://kana2212.github.io/ComicLogAPI/openapi.yaml",
         dom_id: '#swagger-ui',
-        // validatorUrl: null,
-         deepLinking: true,
+          deepLinking: true,
         presets: [
           SwaggerUIBundle.presets.apis,
           SwaggerUIStandalonePreset
