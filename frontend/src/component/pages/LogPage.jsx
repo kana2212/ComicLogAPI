@@ -14,7 +14,7 @@ export const LogPage = () => {
           <HeaderLayout />
         </Link>
         <Typography variant="h6" sx={{ paddingBottom: "10px" }}>
-          お試し登録は3つまでです。
+          読書記録をつける
         </Typography>
         <CreateComicInput />
       </div>
