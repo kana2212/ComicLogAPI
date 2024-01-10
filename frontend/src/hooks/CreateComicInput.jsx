@@ -9,7 +9,7 @@ import { useMessage } from "./useMessage";
 
 export const CreateComicInput = () => {
   const { inputData, setInputData, setComicList } = useComicInput();
-  const { notifySuccess, notifyError } = useMessage();
+  const { notifySuccess, notifyError, MessageSnackbar } = useMessage();
   const [status, setStatus] = useState("");
   const handleCheckBoxChange = (selectedStatus) => {
     setStatus(selectedStatus);
@@ -45,8 +45,8 @@ export const CreateComicInput = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <>
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl>
           <TextField
             {...register("comicServiceName", { required: true })}
@@ -71,6 +71,7 @@ export const CreateComicInput = () => {
           <TextField
             {...register("volumes", { pattern: /^[0-9]*$/ })}
             label="巻数"
+            type="number"
             variant="outlined"
             sx={{ maxWidth: 360 }}
           />
@@ -85,8 +86,9 @@ export const CreateComicInput = () => {
         >
           登録
         </Button>
-      </>
+      </form>
       <ComicLogTable inputData={inputData} />
-    </form>
+      <MessageSnackbar />
+    </>
   );
 };
