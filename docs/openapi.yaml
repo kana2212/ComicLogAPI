@@ -19,18 +19,25 @@ paths:
       parameters:
         - name: comicServiceName
           in: query
+          description: 入力した文字が含まれるコミックサービス名が検索される
           schema:
             type: string
+          example: コミックシーモア
         - name: comicTitle
           in: query
+          description: 入力した文字が含まれるコミックタイトルが検索される
           schema:
             type: string
+          example: 鬼滅の刃
         - name: volumes
           in: query
+          description: 入力した数字が含まれる巻数が検索される
           schema:
             type: integer
+          example: 23
         - name: status
           in: query
+          description: 入力した状態に該当する状況が検索される
           schema:
             type: string
             enum:
@@ -44,7 +51,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Comic'
+                  $ref: '#/components/schemas/ComicType1'
 
     post:
       tags:
@@ -56,7 +63,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Comic'
+              $ref: '#/components/schemas/ComicType2'
       responses:
         "201":
           description: "Created"
@@ -78,16 +85,18 @@ paths:
       parameters:
         - name: id
           in: path
+          description: 取得したいコミック情報のID
           required: true
           schema:
             type: integer
+            example: 1
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Comic'
+                $ref: '#/components/schemas/ComicType2'
         "404":
           description: "Resource not found"
           content:
@@ -106,15 +115,17 @@ paths:
       parameters:
         - name: "id"
           in: "path"
+          description: 更新したいコミック情報のID
           required: true
           schema:
             type: integer
+            example: 1
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Comic'
+              $ref: '#/components/schemas/ComicType2'
       responses:
         "200":
           description: OK
@@ -144,9 +155,11 @@ paths:
       parameters:
         - name: "id"
           in: "path"
+          description: 削除したいコミック情報のID
           required: true
           schema:
             type: integer
+            example: 1
       responses:
         "200":
           description: OK
@@ -161,12 +174,28 @@ paths:
   
 components:
   schemas:
-    Comic:
+    ComicType1:
       type: object
       properties:
         id:
           type: integer
           example: 1
+        comicServiceName:
+          type: string
+          example: "コミックシーモア"
+        comicTitle:
+          type: string
+          example: "鬼滅の刃"
+        volumes:
+          type: integer
+          example: 23
+        status:
+          type: string
+          example: "完結"
+
+    ComicType2:
+      type: object
+      properties:
         comicServiceName:
           type: string
           example: "コミックシーモア"
