@@ -12,16 +12,13 @@ import { useForm } from "react-hook-form";
 const EditComicForm = ({ comic, onSubmit }) => {
   const [formData, setFormData] = useState({
     ...comic,
-    volumes: comic.volumes || 0,
+    volumes: comic.volumes,
   });
 
   const handleChange = (e) => {
     let value = e.target.value;
     if (e.target.name === "volumes") {
-      value = parseInt(value, 10);
-      if (isNaN(value)) {
-        value = 0;
-      }
+      value = parseInt(value, 10) || "";
     }
     setFormData({ ...formData, [e.target.name]: value });
   };
@@ -80,7 +77,7 @@ const EditComicForm = ({ comic, onSubmit }) => {
           value={formData.volumes}
           onChange={handleChange}
           error={Boolean(errors.volumes)}
-          helperText={errors.volumes ? "数字を入力してください" : ""}
+          helperText={errors.volumes ? "0以上の数字を入力してください" : ""}
           sx={{ width: "100%", margin: "8px 0" }}
         />
       </FormControl>
