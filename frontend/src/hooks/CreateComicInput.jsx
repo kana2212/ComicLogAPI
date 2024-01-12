@@ -8,7 +8,7 @@ import { useComicInput } from "./provider/ComicInputProvider";
 import { useMessage } from "./useMessage";
 
 export const CreateComicInput = () => {
-  const { inputData, setInputData, setComicList } = useComicInput();
+  const { inputData, setComicList } = useComicInput();
   const { notifySuccess, notifyError, MessageSnackbar } = useMessage();
   const [status, setStatus] = useState("");
   const handleCheckBoxChange = (selectedStatus) => {
@@ -17,6 +17,7 @@ export const CreateComicInput = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -33,11 +34,7 @@ export const CreateComicInput = () => {
       setComicList(getResponse.data);
 
       console.log(postResponse);
-      setInputData({
-        comicServiceName: "",
-        comicTitle: "",
-        volumes: "",
-      });
+      reset();
       notifySuccess("登録成功");
     } catch (error) {
       notifyError("登録失敗");
@@ -69,7 +66,13 @@ export const CreateComicInput = () => {
         </FormControl>
         <FormControl>
           <TextField
-            {...register("volumes", { pattern: /^[0-9]*$/ })}
+            {...register("volumes", {
+              required: "入力必須",
+              pattern: {
+                value: /^[0-9]+$/,
+                message: "巻数は数字のみ入力してください",
+              },
+            })}
             label="巻数"
             type="number"
             variant="outlined"
