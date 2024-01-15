@@ -1,4 +1,4 @@
-package com.example.Comic_Log_API.controller;
+package com.example.comic_log_api.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.example.Comic_Log_API.entity.Comic;
-import com.example.Comic_Log_API.form.CreateForm;
-import com.example.Comic_Log_API.form.UpdateForm;
-import com.example.Comic_Log_API.service.ComicLogService;
+import com.example.comic_log_api.entity.Comic;
+import com.example.comic_log_api.form.CreateForm;
+import com.example.comic_log_api.form.UpdateForm;
+import com.example.comic_log_api.service.ComicLogService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")

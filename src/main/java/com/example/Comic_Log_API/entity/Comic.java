@@ -1,4 +1,4 @@
-package com.example.Comic_Log_API.entity;
+package com.example.comic_log_api.entity;
 
 import java.util.Objects;
 

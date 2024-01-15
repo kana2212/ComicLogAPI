@@ -1,8 +1,8 @@
-package com.example.Comic_Log_API.service;
+package com.example.comic_log_api.service;
 
 import java.util.List;
 
-import com.example.Comic_Log_API.entity.Comic;
+import com.example.comic_log_api.entity.Comic;
 
 public interface ComicLogService {
 

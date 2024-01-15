@@ -1,17 +1,19 @@
-package com.example.Comic_Log_API.exception;
+package com.example.comic_log_api.exception;
 
-import jakarta.servlet.http.HttpServletRequest;
+import java.time.ZonedDateTime;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.time.ZonedDateTime;
-import java.util.Map;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
 public class CustomExceptionHandler {
     @ExceptionHandler(value = ResourceNotFoundException.class)
+            
     public ResponseEntity<Map<String, String>> handleNoResourceFound(ResourceNotFoundException e, HttpServletRequest request) {
         Map<String, String> body = Map.of(
                 "timestamp", ZonedDateTime.now().toString(),

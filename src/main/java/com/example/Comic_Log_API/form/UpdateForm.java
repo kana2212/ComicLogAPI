@@ -1,4 +1,4 @@
-package com.example.Comic_Log_API.form;
+package com.example.comic_log_api.form;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

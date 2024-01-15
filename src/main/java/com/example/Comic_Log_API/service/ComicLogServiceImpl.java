@@ -1,13 +1,13 @@
-package com.example.Comic_Log_API.service;
+package com.example.comic_log_api.service;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.example.Comic_Log_API.entity.Comic;
-import com.example.Comic_Log_API.exception.ResourceNotFoundException;
-import com.example.Comic_Log_API.repository.ComicLogMapper;
+import com.example.comic_log_api.entity.Comic;
+import com.example.comic_log_api.exception.ResourceNotFoundException;
+import com.example.comic_log_api.repository.ComicLogMapper;
 
 @Service
 public class ComicLogServiceImpl implements ComicLogService {
@@ -23,7 +23,7 @@ public class ComicLogServiceImpl implements ComicLogService {
         if (comics.isPresent()) {
             return comics.get();
         } else {
-            throw new com.example.Comic_Log_API.exception.ResourceNotFoundException("resource not found");
+            throw new com.example.comic_log_api.exception.ResourceNotFoundException("resource not found");
         }
     }
 
