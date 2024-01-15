@@ -16,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.example.comic_log_api.entity.Comic;
 import com.example.comic_log_api.exception.ResourceNotFoundException;
 import com.example.comic_log_api.repository.ComicLogMapper;
-import com.example.comic_log_api.service.ComicLogServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 public class ComicLogServiceImplTest {
