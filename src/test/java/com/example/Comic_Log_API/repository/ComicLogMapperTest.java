@@ -1,4 +1,4 @@
-package com.example.Comic_Log_API.repository;
+package com.example.comic_log_api.repository;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.Comic_Log_API.entity.Comic;
+import com.example.comic_log_api.entity.Comic;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
@@ -52,7 +52,7 @@ public class ComicLogMapperTest {
     @ExpectedDataSet(value = "datasets/update_comic.yml")
     @Transactional
     void 指定したIDのコミック情報を更新できること() {
-        comicLogMapper.updateComics(2, "Rakuten Kobo", "薬屋のひとりごと", 11, "続");
+        comicLogMapper.updateComics(2, "Renta!", "葬送のフリーレン", 11, "続");
     }
 
     @Test

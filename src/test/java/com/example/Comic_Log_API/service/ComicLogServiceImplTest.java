@@ -1,4 +1,4 @@
-package com.example.Comic_Log_API.service;
+package com.example.comic_log_api.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -13,9 +13,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.example.Comic_Log_API.entity.Comic;
-import com.example.Comic_Log_API.exception.ResourceNotFoundException;
-import com.example.Comic_Log_API.repository.ComicLogMapper;
+import com.example.comic_log_api.entity.Comic;
+import com.example.comic_log_api.exception.ResourceNotFoundException;
+import com.example.comic_log_api.repository.ComicLogMapper;
+import com.example.comic_log_api.service.ComicLogServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 public class ComicLogServiceImplTest {

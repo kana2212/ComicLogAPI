@@ -2,11 +2,11 @@ comics:
   - id: 1
     comic_service_name: "コミックシーモア"
     comic_title: "鬼滅の刃"
-    volumes: 22
-    status: "続"
+    volumes: 23
+    status: "完結"
   - id: 2
-    comic_service_name: "Rakuten Kobo"
-    comic_title: "薬屋のひとりごと"
+    comic_service_name: "Renta!"
+    comic_title: "葬送のフリーレン"
     volumes: 11
     status: "続"
   - id: 3
