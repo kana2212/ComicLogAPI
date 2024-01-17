@@ -68,14 +68,33 @@
 
 [swagger を用いた API 仕様書](https://kana2212.github.io/ComicLogAPI/)
 
-## インフラ構成図
+## ローカルでのアプリケーション起動方法
 
-![]()
+- Git, Java, Node.js, Docker をインストールする。
+
+- リポジトリを git clone する。  
+  `git clone https://github.com/kana2212/ComicLogAPI.git`
+
+- クローンしたディレクトリに移動する。
+
+- Docker を起動する。  
+  `docker compose up`
+
+- Spring Boot を起動する。  
+  `./gradlew bootRun`
+
+- frontend ディレクトリに移動する。  
+  `cd frontend/`
+
+- 依存関係をインストールし、React のアプリケーションを起動す る。  
+  `npm install`  
+  `npm start`
 
 ## 苦労した事
 
 初めは機能の実装とレイアウトをどう結びつけるのかが想像出来ず苦労しました。他の方の実装を何人も比較・研究し,探りつつ開発を進めました。  
-各 Hooks の知識から使用方法、非同期処理など理解する事に時間がかかり、React で良く聞くバケツリレーにも陥りました。
+各 Hooks の知識から使用方法、非同期処理など理解する事に時間がかかり、バケツリレーの回避なども難しさを感じました。
+最終的には苦戦しながらもフロントエンドとバックエンドをどちらも実装出来たことで大変良い学びになりました。
 
 ## 振り返り
 
