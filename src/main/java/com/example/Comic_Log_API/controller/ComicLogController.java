@@ -23,7 +23,7 @@ import com.example.comic_log_api.form.UpdateForm;
 import com.example.comic_log_api.service.ComicLogService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class ComicLogController {
     private final ComicLogService comicLogService;
 
