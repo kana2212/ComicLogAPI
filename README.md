@@ -68,10 +68,6 @@
 
 [swagger を用いた API 仕様書](https://kana2212.github.io/ComicLogAPI/)
 
-## インフラ構成図
-
-![ポートフォリオ1](./image/ポートフォリオ1.drawio.png)
-
 ## ローカルでのアプリケーション起動方法
 
 - Git, Java, Node.js, Docker をインストールする。
