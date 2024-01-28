@@ -6,7 +6,8 @@ import com.example.comiclogapi.entity.Comic;
 
 public interface ComicLogService {
 
-    List<Comic> findAll();
+    List<Comic> findByConditions(Integer id, String comicServiceName, String comicTitle, Integer volumes,
+            String status);
 
     Comic findById(Integer id);
 
